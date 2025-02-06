@@ -106,10 +106,12 @@ You can find descriptions of each of the variables in the help file for the data
 ```
 
 3.  Create a faceted histogram where each facet represents a neighbourhood and displays the distribution of Airbnb prices in that neighbourhood. Think critically about whether it makes more sense to stack the facets on top of each other in a column, lay them out in a row, or wrap them around. Along with your visualisation, include your reasoning for the layout you chose for your facets.
+I chose the binwidth to be 25 because it looks easier to read.
 
-````{r edibnb-hist-facet, eval = TRUE}
+
+````{r eval = TRUE}
 ggplot(data = edibnb, mapping = aes(x = price)) +
-  geom_histogram(binwidth = 15) +
+  geom_histogram(binwidth = 25) +
   facet_wrap(~neighbourhood)
 ````
 
@@ -123,8 +125,22 @@ Let's de-construct this code:
 🧶 ✅ ⬆️ Knit, *commit, and push your changes to GitHub with an appropriate commit message. Make sure to commit and push all changed files so that your Git pane is cleared up afterwards.*
 
 4.  Use a single pipeline to identity the neighbourhoods with the top five median listing prices. Then, in another pipeline filter the data for these five neighbourhoods and make ridge plots of the distributions of listing prices in these five neighbourhoods. In a third pipeline calculate the minimum, mean, median, standard deviation, IQR, and maximum listing price in each of these neighbourhoods. Use the visualisation and the summary statistics to describe the distribution of listing prices in the neighbourhoods. (Your answer will include three pipelines, one of which ends in a visualisation, and a narrative.)
+``` {r eval = TRUE}
+edibnb |>
+  select(neighbourhood) |>
+  arrange(median(500))
+```
+``` {r eval = TRUE}
+edibnb |>
+  filter()
+```
 5.  Create a visualization that will help you compare the distribution of review scores (`review_scores_rating`) across neighbourhoods. You get to decide what type of visualisation to create and there is more than one correct answer! In your answer, include a brief interpretation of how Airbnb guests rate properties in general and how the neighbourhoods compare to each other in terms of their ratings.
-
+``` {r eval = TRUE}
+ggplot(data = edibnb, mapping = aes(x = review_scores_rating, y = neighbourhood)
+       )+
+  geom_point()
+```
+There seems to be more higher ratings than lower ratings for these neighborhoods.
 🧶 ✅ ⬆️ Knit, *commit, and push your changes to GitHub with an appropriate commit message. Make sure to commit and push all changed files so that your Git pane is cleared up afterwards and review the md document on GitHub to make sure you're happy with the final state of your work.*
 
 *Save a pdf version and submit to moodle*
